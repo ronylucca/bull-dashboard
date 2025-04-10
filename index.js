@@ -10,12 +10,13 @@ const { ExpressAdapter } = require('@bull-board/express');
 // }); // if you have a special connection to redis.
 const ticketQueue = new Queue('ticket');
 const changeQueue = new Queue('change');
+const machineQueue = new Queue('machine');
 const serverAdapter = new ExpressAdapter();
 
 serverAdapter.setBasePath('/admin/queues');
 
 const { addQueue, removeQueue, setQueues, replaceQueues } = createBullBoard({
-  queues: [new BullAdapter(ticketQueue), new BullAdapter(changeQueue)],
+  queues: [new BullAdapter(ticketQueue), new BullAdapter(changeQueue), new BullAdapter(machineQueue)],
   serverAdapter: serverAdapter,
 });
 
